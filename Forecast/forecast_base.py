@@ -3,21 +3,27 @@ import requests
 
 
 class ForecastBase(object):
-    temp: int
+    temp_day: int
+    temp_night: int
     wind_direction: str
     wind_speed: int
+    condition: str
     date: datetime.datetime
 
-    def __init__(self, date, temp, wind_speed, wind_direction):
-        self.temp = temp
+    def __init__(self, date, temp_day, temp_night, wind_speed, wind_direction, condition):
+        self.temp_day = temp_day
+        self.temp_night = temp_night
         self.date = date
         self.wind_speed = wind_speed
         self.wind_direction = wind_direction
+        self.condition = condition
 
+    def __repr__(self):
+        return f'{self.date}:{self.condition} Температура ночью: {self.temp_night}, днем: {self.temp_day}'
 
 class Forecaster(object):
     href = ''
-    result = []
+    result = None
     session = None
 
     def __init__(self):
